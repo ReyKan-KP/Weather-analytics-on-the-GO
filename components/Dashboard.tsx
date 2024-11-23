@@ -62,7 +62,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50 to-white dark:from-slate-950 dark:to-slate-900">
+    <div className="min-h-screen bg-gradient-to-b from-sky-50 to-white dark:from-slate-900 dark:to-slate-800">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -73,7 +73,7 @@ export default function Dashboard() {
           <motion.h1
             initial={{ y: -20 }}
             animate={{ y: 0 }}
-            className="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r from-slate-600 to-slate-900 dark:from-slate-200 dark:to-slate-400 bg-clip-text text-transparent"
+            className="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r from-slate-700 to-slate-900 dark:from-slate-100 dark:to-slate-300 bg-clip-text text-transparent"
           >
             Weather Analytics on the GO
           </motion.h1>
@@ -87,7 +87,6 @@ export default function Dashboard() {
             <span>{currentDateTime.toLocaleString()}</span>
           </motion.div>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <WeatherCard
             title="Temperature"
@@ -118,8 +117,7 @@ export default function Dashboard() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
           className="rounded-lg border-2 dark:border-muted bg-card p-6"
-        >
-        </motion.div>
+        ></motion.div>
       </motion.div>
     </div>
   );

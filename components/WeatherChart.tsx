@@ -41,9 +41,9 @@ export default function WeatherChart({ data }: WeatherChartProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
     >
-      <Card className="border-2 dark:border-muted">
+      <Card className="border-2 dark:border-slate-700/50 dark:bg-slate-800/50 backdrop-blur-sm">
         <CardHeader>
-          <CardTitle className="text-xl font-semibold">
+          <CardTitle className="text-xl font-semibold dark:text-slate-100">
             Weather Trends
           </CardTitle>
           <Tabs defaultValue="all" className="w-full">
