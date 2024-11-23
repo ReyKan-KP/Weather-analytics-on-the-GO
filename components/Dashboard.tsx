@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { MapPin } from "lucide-react";
 import WeatherChart from "./WeatherChart";
 import WeatherCard from "./WeatherCard";
-// import WeatherCalendar from "./WeatherCalendar";
 import {
   fetchWeatherData,
   fetchHistoricalWeatherData,
@@ -120,10 +119,6 @@ export default function Dashboard() {
           transition={{ delay: 0.4 }}
           className="rounded-lg border-2 dark:border-muted bg-card p-6"
         >
-          {/* <h2 className="text-xl font-semibold mb-4">
-            Historical Weather Data
-          </h2>
-          <WeatherCalendar /> */}
         </motion.div>
       </motion.div>
     </div>
