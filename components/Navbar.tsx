@@ -13,7 +13,18 @@ import {
 import { Input } from "@/components/ui/input";
 import NotificationPanel from "./NotificationPanel";
 
-export default function Navbar() {
+interface WeatherChange {
+  type: "temperature" | "humidity" | "rainfall";
+  title: string;
+  message: string;
+  change: number;
+}
+
+interface NavbarProps {
+  weatherChanges?: WeatherChange[];
+}
+
+export default function Navbar({ weatherChanges = [] }: NavbarProps) {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
@@ -53,13 +64,15 @@ export default function Navbar() {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="relative">
                   <Bell className="h-5 w-5 dark:text-slate-200" />
-                  <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-blue-500 text-[10px] text-white dark:bg-blue-400">
-                    3
-                  </span>
+                  {weatherChanges.length > 0 && (
+                    <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-blue-500 text-[10px] text-white dark:bg-blue-400">
+                      {weatherChanges.length}
+                    </span>
+                  )}
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-[300px]">
-                <NotificationPanel />
+                <NotificationPanel weatherChanges={weatherChanges} />
               </DropdownMenuContent>
             </DropdownMenu>
 

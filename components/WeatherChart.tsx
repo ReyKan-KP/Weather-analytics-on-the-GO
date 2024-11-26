@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   LineChart,
@@ -17,7 +17,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface WeatherChartProps {
   data: Array<{
-    time: string;
+    timestamp: string;
     temperature: number;
     humidity: number;
     rainfall: number;
@@ -29,7 +29,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
     return (
       <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-2 rounded-lg border border-gray-200 dark:border-slate-700 shadow-xl text-xs">
         <span className="text-gray-900/80 dark:text-gray-200 font-medium mb-1 block">
-          Time: {label}
+          Time: {new Date(label).toLocaleString()}
         </span>
         {payload.map((entry: any, index: number) => (
           <p
@@ -38,7 +38,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
             style={{ color: entry.stroke }}
           >
             {entry.name.charAt(0).toUpperCase() + entry.name.slice(1)}:{" "}
-            {entry.value}
+            {entry.value.toFixed(2)}
             {entry.name === "Temperature"
               ? " °C"
               : entry.name === "Humidity"
@@ -67,6 +67,17 @@ export default function WeatherChart({ data }: WeatherChartProps) {
     inactive: { scale: 1 },
     active: { scale: 1.05 },
   };
+
+  // Format the timestamp for display
+  const formatXAxis = (tickItem: string) => {
+    return new Date(tickItem).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
+  // Reverse the data array
+  const reversedData = useMemo(() => [...data].reverse(), [data]);
 
   return (
     <motion.div
@@ -106,7 +117,6 @@ export default function WeatherChart({ data }: WeatherChartProps) {
             </TabsList>
           </Tabs>
         </CardHeader>
-        <br /><br />
         <CardContent>
           <AnimatePresence mode="wait">
             <motion.div
@@ -118,19 +128,20 @@ export default function WeatherChart({ data }: WeatherChartProps) {
               className="h-[300px] sm:h-[400px] mt-2 sm:mt-4"
             >
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={data}>
+                <LineChart data={reversedData}>
                   <CartesianGrid
                     strokeDasharray="3 3"
                     className="stroke-gray-200 dark:stroke-gray-700"
                   />
                   <XAxis
-                    dataKey="time"
+                    dataKey="timestamp"
                     stroke="#94a3b8"
                     fontSize={10}
                     tickLine={false}
                     axisLine={{ strokeWidth: 1 }}
                     tick={{ fontSize: 10 }}
                     interval="preserveStartEnd"
+                    tickFormatter={formatXAxis}
                   />
                   <YAxis
                     stroke="#94a3b8"
