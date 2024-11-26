@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { fetchRealtimeWeatherData } from "../lib/firebase";
 import { generateCSV, downloadCSV } from "../lib/csvUtils";
 import type { WeatherData, HistoricalWeatherData } from "../lib/types";
+import Navbar from "./Navbar";
 
 type Trend = "up" | "down" | "stable";
 
@@ -137,6 +138,7 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-sky-50 to-white dark:from-slate-900 dark:to-slate-800">
+      <Navbar  weatherChanges={weatherChanges}/>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
